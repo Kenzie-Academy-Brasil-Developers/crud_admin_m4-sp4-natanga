@@ -11,8 +11,9 @@ export class AppError extends Error {
 
 export const handleErros = (err: Error, req: Request, res: Response, next: NextFunction): Response => {
 
+
     if (err instanceof AppError) {
-        return res.status(err.statusCode).json(err.message)
+        return res.status(err.statusCode).json({ message: err.message })
     }
 
     if (err instanceof ZodError) {
