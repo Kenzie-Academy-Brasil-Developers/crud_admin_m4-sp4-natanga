@@ -1,13 +1,8 @@
 import { z } from "zod";
-import { CreateUserRequestSchema } from './../schemas/user.schema';
+import { UserSchema, ensureDataIsValid, returnUserSchema } from './../schemas/user.schema';
 
-export type tCreateUserRequest = z.infer<typeof CreateUserRequestSchema>
+export type tUser = z.infer<typeof UserSchema>
 
-export type tUser = {
-    id: string
-    name: string;
-    email: string;
-    password: string;
-    admin?: boolean | undefined;
-    active?: boolean | undefined;
-}
+export type tCreateUserRequest = z.infer<typeof ensureDataIsValid>
+
+export type tUserWithoutPassword = z.infer<typeof returnUserSchema>
