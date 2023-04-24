@@ -35,19 +35,19 @@ export const updateProfileController = async (req: Request, res: Response): Prom
 
     const updateUser = await updateUsersService(req.body, parseInt(req.params.id))
 
-    return res.status(201).json(updateUser)
+    return res.status(200).json(updateUser)
 }
 
 export const putRecoverProfileController = async (req: Request, res: Response): Promise<Response> => {
 
-    const newUser = await putRecoverUsersService(parseInt(req.params.id))
+    const recoverUser = await putRecoverUsersService(parseInt(req.params.id))
 
-    return res.status(200).json(newUser)
+    return res.status(200).json(recoverUser)
 }
 
 export const deleteProfileController = async (req: Request, res: Response): Promise<Response> => {
 
-    const newUser = await deleteUsersService(parseInt(req.params.id))
+    await deleteUsersService(parseInt(req.params.id))
 
-    return res.status(200).json(newUser)
+    return res.status(204).json()
 }

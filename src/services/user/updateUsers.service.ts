@@ -14,7 +14,7 @@ export const updateUsersService = async (dataUserUpadate: any, idUser: number): 
           (%I) = ROW (%L)
         WHERE
             id = $1
-          RETURNING *;
+        RETURNING *;
         `,
         Object.keys(dataUserUpadate),
         Object.values(dataUserUpadate)

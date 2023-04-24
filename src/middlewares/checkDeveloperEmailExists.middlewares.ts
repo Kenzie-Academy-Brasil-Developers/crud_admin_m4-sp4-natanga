@@ -8,6 +8,9 @@ export const checkDeveloperEmailExists = async (req: Request, res: Response, nex
 
     const { email } = req.body
 
+    if (!email) {
+        next()
+    }
     const queryString: string = `
         SELECT  
             * 
