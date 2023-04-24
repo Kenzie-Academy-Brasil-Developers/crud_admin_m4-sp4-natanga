@@ -1,9 +1,10 @@
 import { QueryResult } from 'pg';
 import client from '../../database/config';
-import { tUser } from '../../interfaces/user.interfaces';
+import { tUser, tUserWithoutPassword } from '../../interfaces/user.interfaces';
 import { AppError } from '../../erros';
+import { returnUserSchema } from '../../schemas/users.schemas';
 
-export const putRecoverUsersService = async (idUser: number) => {
+export const putRecoverUsersService = async (idUser: number): Promise<tUserWithoutPassword> => {
 
     let queryString: string = `
         SELECT 
@@ -13,7 +14,7 @@ export const putRecoverUsersService = async (idUser: number) => {
         WHERE
             id = $1;
     `
-    const queryResult: QueryResult<tUser> = await client.query(queryString, [idUser])
+    let queryResult: QueryResult<tUser> = await client.query(queryString, [idUser])
 
     if (queryResult.rowCount <= 0) {
         throw new AppError("User nort exist", 400)
@@ -29,8 +30,15 @@ export const putRecoverUsersService = async (idUser: number) => {
         SET
             active = true
         WHERE
-            id = $1;
+            id = $1
+        RETURNING * 
+        ;
     `
 
-    await client.query(queryString, [idUser])
+    queryResult = await client.query(queryString, [idUser])
+
+    const responseUser: tUserWithoutPassword = returnUserSchema.parse(queryResult.rows[0])
+
+    return responseUser
+
 }

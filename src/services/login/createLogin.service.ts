@@ -8,6 +8,10 @@ import { AppError } from './../../erros';
 
 export const createLogin = async (dataLogin: IloginRequest) => {
 
+    if (!dataLogin.email && !dataLogin.password) {
+        throw new AppError("Wrong email/password", 400)
+    }
+
     const queryString: string = `
         SELECT
             *
@@ -21,13 +25,13 @@ export const createLogin = async (dataLogin: IloginRequest) => {
 
     
     if (queryResult.rowCount == 0) {
-        throw new AppError("Wrong email/password ", 400)
+        throw new AppError("Wrong email/password", 401)
     }
     
     const machPassword: boolean = await compare(dataLogin.password, queryResult.rows[0].password)
 
     if (!machPassword || !queryResult.rows[0].active) {
-        throw new AppError("Wrong email/password ", 400)
+        throw new AppError("Wrong email/password", 401)
     }
 
     const token = jwt.sign(

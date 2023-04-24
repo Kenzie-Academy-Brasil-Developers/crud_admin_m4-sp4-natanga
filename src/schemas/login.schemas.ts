@@ -1,4 +1,4 @@
-import { hashSync } from "bcryptjs"
+
 import { z } from "zod"
 
 export const loginSchema = z.object({
