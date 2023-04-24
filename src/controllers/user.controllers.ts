@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { tCreateUserRequest, tUser, tUserWithoutPassword } from '../interfaces/user.interfaces';
-import { createUsersService } from './../services/createUsers.service';
-import { getUsersService } from './../services/getUsers.service';
-import { getProfileService } from './../services/getProfile.service';
-import { updateUsersService } from './../services/updateUsers.service';
-import { putRecoverUsersService } from './../services/putRecoverUsers.service';
-import { deleteUsersService } from './../services/deleteUsers.service';
+import { createUsersService } from '../services/user/createUsers.service';
+import { getUsersService } from './../services/user/getUsers.service';
+import { getProfileService } from './../services/user/getProfile.service';
+import { updateUsersService } from './../services/user/updateUsers.service';
+import { putRecoverUsersService } from './../services/user/putRecoverUsers.service';
+import { deleteUsersService } from '../services/user/deleteUsers.service';
 
 export const createdUserController = async (req: Request<{}, {}, tCreateUserRequest>, res: Response): Promise<Response> => {
 

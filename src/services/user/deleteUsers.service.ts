@@ -1,5 +1,4 @@
-import { QueryConfig } from 'pg';
-import client from './../database/config';
+import client from '../../database/config';
 
 export const deleteUsersService = async (idUser: number) => {
 
@@ -12,10 +11,5 @@ export const deleteUsersService = async (idUser: number) => {
             id = $1;
     `
 
-    const queryConfig: QueryConfig = {
-        text: queryString,
-        values: [idUser]
-    }
-
-    await client.query(queryConfig)
+    await client.query(queryString, [idUser])
 }

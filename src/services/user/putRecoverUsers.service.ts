@@ -1,8 +1,7 @@
-import { QueryConfig } from 'pg';
-import client from './../database/config';
 import { QueryResult } from 'pg';
-import { tUser } from '../interfaces/user.interfaces';
-import { AppError } from './../erros';
+import client from '../../database/config';
+import { tUser } from '../../interfaces/user.interfaces';
+import { AppError } from '../../erros';
 
 export const putRecoverUsersService = async (idUser: number) => {
 
@@ -14,13 +13,7 @@ export const putRecoverUsersService = async (idUser: number) => {
         WHERE
             id = $1;
     `
-
-    let queryConfig: QueryConfig = {
-        text: queryString,
-        values: [idUser]
-    }
-
-    const queryResult: QueryResult<tUser> = await client.query(queryConfig)
+    const queryResult: QueryResult<tUser> = await client.query(queryString, [idUser])
 
     if (queryResult.rowCount <= 0) {
         throw new AppError("User nort exist", 400)
@@ -39,10 +32,5 @@ export const putRecoverUsersService = async (idUser: number) => {
             id = $1;
     `
 
-    queryConfig = {
-        text: queryString,
-        values: [idUser]
-    }
-
-    await client.query(queryConfig)
+    await client.query(queryString, [idUser])
 }
