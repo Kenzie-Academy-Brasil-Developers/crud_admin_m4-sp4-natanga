@@ -1,8 +1,8 @@
 
 import { QueryResult } from "pg";
-import { tUser, tUserWithoutPassword } from "../interfaces/user.interfaces";
-import { returnUserSchema } from "../schemas/user.schema";
-import client from './../database/config';
+import { tUser, tUserWithoutPassword } from "../../interfaces/user.interfaces";
+import { returnUserSchema } from "../../schemas/user.schema";
+import client from '../../database/config';
 
 export const getUsersService = async (): Promise<tUserWithoutPassword[]> => {
     
