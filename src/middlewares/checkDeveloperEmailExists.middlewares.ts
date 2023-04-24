@@ -12,7 +12,7 @@ export const checkDeveloperEmailExists = async (req: Request, res: Response, nex
         SELECT  
             * 
         FROM    
-            developers
+            users
         WHERE 
             email = $1
     ;`

@@ -19,14 +19,15 @@ export const createLogin = async (dataLogin: IloginRequest) => {
 
     const queryResult: QueryResult<IloginResponse> = await client.query(queryString, [dataLogin.email])
 
-    if (queryResult.rowCount === 0) {
-        throw new AppError("Wrong email or password ", 401)
+    
+    if (queryResult.rowCount == 0) {
+        throw new AppError("Wrong email/password ", 400)
     }
-
+    
     const machPassword: boolean = await compare(dataLogin.password, queryResult.rows[0].password)
 
     if (!machPassword || !queryResult.rows[0].active) {
-        throw new AppError("Wrong email or password ", 401)
+        throw new AppError("Wrong email/password ", 400)
     }
 
     const token = jwt.sign(
