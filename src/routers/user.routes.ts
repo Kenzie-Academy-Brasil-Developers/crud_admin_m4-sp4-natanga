@@ -12,7 +12,7 @@ const usersRoutes: Router = Router();
 
 usersRoutes.post('', checkDeveloperEmailExists, validateBodyMiddlewares(createUserSchema), createdUserController);
 usersRoutes.get('', ensureTokenIsValid, checkIfUserAdminMiddleware, getUsersController)
-usersRoutes.get('/profile', ensureTokenIsValid, checkIfUserAdminMiddleware, getProfileController)
+usersRoutes.get('/profile', ensureTokenIsValid,  getProfileController)
 usersRoutes.patch('/:id', ensureTokenIsValid, confirmUser, validateBodyMiddlewares(UserUpdateSchema), checkDeveloperIdExists, updateProfileController)
 usersRoutes.delete('/:id', ensureTokenIsValid, confirmUser, checkDeveloperIdExists, deleteProfileController)
 usersRoutes.put('/:id/recover', ensureTokenIsValid, checkIfUserAdminMiddleware, checkDeveloperIdExists, putRecoverProfileController)
